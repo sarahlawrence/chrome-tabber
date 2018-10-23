@@ -1,0 +1,9 @@
+{
+  "name": "Chrome Tabber",
+  "version": "1.0",
+  "description": "New tab chrome extension",
+  "manifest_version": 2,
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
+}
