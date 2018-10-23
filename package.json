@@ -1,0 +1,26 @@
+{
+  "name": "chrome-tabber",
+  "version": "1.0.0",
+  "description": "Customised chrome new tab page",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SerriLaw/chrome-tabber.git"
+  },
+  "author": "Sarah Lawrence (@SerriLaw on GitHub)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SerriLaw/chrome-tabber/issues"
+  },
+  "homepage": "https://github.com/SerriLaw/chrome-tabber#readme",
+  "dependencies": {
+    "unsplash-js": "^4.8.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.22.0",
+    "webpack-cli": "^3.1.2"
+  }
+}
