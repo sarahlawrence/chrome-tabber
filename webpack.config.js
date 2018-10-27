@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -12,10 +13,6 @@ module.exports = {
         loader: "babel-loader",
         options: { presets: ["@babel/env"] }
       }
-      // {
-      //   test: /\.css$/,
-      //   use: ["style-loader", "css-loader"]
-      // }
     ]
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },
@@ -30,5 +27,8 @@ module.exports = {
     publicPath: "http://localhost:3000/dist/",
     hotOnly: true
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([{ from: "public", to: "" }])
+  ]
 };
