@@ -4,6 +4,7 @@ import { ImageObj } from './@types/global';
 import { fetchImage } from './lib/fetchImage';
 import Attribution from './components/attribution';
 import Background from './components/background';
+import TimeDate from './components/timeDate';
 
 interface Props {}
 interface State {
@@ -35,7 +36,7 @@ export default class App extends React.Component<Props, State> {
     const { image } = this.state;
     return image.url ? (
       <Background imageUrl={image.url}>
-        <p>Hello world</p>
+        <TimeDate />
         <Attribution
           username={image.photographerUsername}
           name={image.photographerName}
