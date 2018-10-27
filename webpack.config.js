@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: ["@babel/polyfill", "./src/index.js"],
-  mode: "development",
+  devtool: "inline-source-map",
   module: {
     rules: [
       {
@@ -12,10 +12,17 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: "babel-loader",
         options: { presets: ["@babel/env"] }
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/
       }
     ]
   },
-  resolve: { extensions: ["*", ".js", ".jsx"] },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"]
+  },
   output: {
     path: path.resolve(__dirname, "dist/"),
     publicPath: "/dist/",

@@ -1,11 +1,16 @@
-import React from "react";
+import * as React from "react";
 
 import { fetchImage } from "./lib/fetchImage";
 import { getImage, setImage } from "./lib/storage";
 import Background from "./components/background";
 
-export default class App extends React.Component {
-  constructor(props) {
+interface Props {}
+interface State {
+  imageUrl: string;
+}
+
+export default class App extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -14,13 +19,14 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
-    let imageUrl = await getImage().url;
-    if (!imageUrl) {
-      imageUrl = await fetchImage();
+    let image = await getImage();
+    if (!image) {
+      const imageUrl = await fetchImage();
       await setImage(imageUrl);
+      image = await getImage();
     }
 
-    this.setState({ imageUrl });
+    image && this.setState({ imageUrl: image.url });
   }
 
   render() {

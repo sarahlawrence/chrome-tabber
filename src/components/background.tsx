@@ -1,6 +1,10 @@
-import React from "react";
+import * as React from "react";
 
-export default class Background extends React.Component {
+interface Props {
+  imageUrl: string;
+}
+
+export default class Background extends React.Component<Props> {
   render() {
     const { imageUrl } = this.props;
     const divStyle = {

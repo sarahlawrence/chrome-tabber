@@ -3,7 +3,12 @@ var moment = require("moment");
 const URL_KEY = "chrome_tabber_url";
 const DATE_KEY = "chrome_tabber_date";
 
-export function getImage() {
+interface ImageObj {
+  url: string;
+  datestamp: string;
+}
+
+export function getImage(): Promise<ImageObj | null> {
   return new Promise(resolve => {
     chrome.storage.local.get([URL_KEY], function(urlRes) {
       const url = urlRes[URL_KEY];
