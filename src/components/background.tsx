@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 interface Props {
   imageUrl: string;
@@ -10,10 +10,10 @@ export default class Background extends React.Component<Props> {
     const divStyle = {
       height: window.innerHeight,
       width: window.innerWidth,
-      backgroundImage: "url(" + imageUrl + ")",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover"
+      backgroundImage: 'url(' + imageUrl + ')',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover'
     };
 
     return <div style={divStyle}>{this.props.children}</div>;

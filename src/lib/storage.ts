@@ -1,7 +1,7 @@
-var moment = require("moment");
+var moment = require('moment');
 
-const URL_KEY = "chrome_tabber_url";
-const DATE_KEY = "chrome_tabber_date";
+const URL_KEY = 'chrome_tabber_url';
+const DATE_KEY = 'chrome_tabber_date';
 
 interface ImageObj {
   url: string;
@@ -14,7 +14,7 @@ export function getImage(): Promise<ImageObj | null> {
       const url = urlRes[URL_KEY];
 
       chrome.storage.local.get([DATE_KEY], function(dateRes) {
-        const datestamp = dateRes[URL_KEY];
+        const datestamp = dateRes[DATE_KEY];
 
         if (url && datestamp) {
           resolve({
@@ -29,17 +29,17 @@ export function getImage(): Promise<ImageObj | null> {
   });
 }
 
-function saveToCache(imageUrl, currentDate) {
+function saveToCache(imageUrl: string, currentDate: string) {
   return new Promise(resolve => {
-    chrome.storage.local.set({ DATE_KEY: currentDate }, function() {
-      chrome.storage.local.set({ URL_KEY: imageUrl }, function() {
+    chrome.storage.local.set({ [DATE_KEY]: currentDate }, function() {
+      chrome.storage.local.set({ [URL_KEY]: imageUrl }, function() {
         resolve();
       });
     });
   });
 }
 
-export async function setImage(imageUrl) {
+export async function setImage(imageUrl: string) {
   const currentDate = new Date().toString();
   const savedImage = await getImage();
   if (
@@ -50,7 +50,7 @@ export async function setImage(imageUrl) {
   }
 }
 
-export function hasTimeoutElapsed(oldDate, currentDate) {
+export function hasTimeoutElapsed(oldDate: string, currentDate: string) {
   const old = moment(oldDate);
   const current = moment(currentDate);
   const timeout = 1000 * 60 * 5;

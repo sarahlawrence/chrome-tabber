@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { fetchImage } from "./lib/fetchImage";
-import { getImage, setImage } from "./lib/storage";
-import Background from "./components/background";
+import { fetchImage } from './lib/fetchImage';
+import { getImage, setImage } from './lib/storage';
+import Background from './components/background';
 
 interface Props {}
 interface State {
@@ -14,7 +14,7 @@ export default class App extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      imageUrl: ""
+      imageUrl: ''
     };
   }
 
