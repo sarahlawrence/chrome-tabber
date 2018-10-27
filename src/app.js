@@ -2,6 +2,7 @@ import React from "react";
 
 import { fetchImage } from "./lib/fetchImage";
 import { getImage, setImage } from "./lib/storage";
+import Background from "./components/background";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -25,9 +26,9 @@ export default class App extends React.Component {
   render() {
     const { imageUrl } = this.state;
     return imageUrl ? (
-      <div>
+      <Background imageUrl={imageUrl}>
         <p>Hello world</p>
-      </div>
+      </Background>
     ) : (
       <div>
         <p>Loading...</p>
