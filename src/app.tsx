@@ -1,12 +1,13 @@
 import * as React from 'react';
 
+import { ImageObj } from './@types/global';
 import { fetchImage } from './lib/fetchImage';
-import { getImage, setImage } from './lib/storage';
+import Attribution from './components/attribution';
 import Background from './components/background';
 
 interface Props {}
 interface State {
-  imageUrl: string;
+  image: ImageObj;
 }
 
 export default class App extends React.Component<Props, State> {
@@ -14,26 +15,31 @@ export default class App extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      imageUrl: ''
+      image: {
+        photographerName: '',
+        photographerUsername: '',
+        url: ''
+      }
     };
   }
 
   async componentDidMount() {
-    let image = await getImage();
-    if (!image) {
-      const imageUrl = await fetchImage();
-      await setImage(imageUrl);
-      image = await getImage();
-    }
+    // TODO: check if timeout has elapsed
+    const fetchedImage = await fetchImage();
+    // TODO: save image to cache
 
-    image && this.setState({ imageUrl: image.url });
+    fetchedImage && this.setState({ image: fetchedImage });
   }
 
   render() {
-    const { imageUrl } = this.state;
-    return imageUrl ? (
-      <Background imageUrl={imageUrl}>
+    const { image } = this.state;
+    return image.url ? (
+      <Background imageUrl={image.url}>
         <p>Hello world</p>
+        <Attribution
+          username={image.photographerUsername}
+          name={image.photographerName}
+        />
       </Background>
     ) : (
       <div>

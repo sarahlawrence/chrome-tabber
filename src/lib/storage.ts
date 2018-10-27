@@ -1,24 +1,27 @@
-var moment = require('moment');
+import { parseZone as moment } from 'moment';
+import { ImageObj } from '../@types/global';
 
-const URL_KEY = 'chrome_tabber_url';
+const IMAGE_KEY = 'chrome_tabber_image';
 const DATE_KEY = 'chrome_tabber_date';
 
-interface ImageObj {
-  url: string;
+interface CacheObj {
+  image: ImageObj;
   datestamp: string;
 }
 
-export function getImage(): Promise<ImageObj | null> {
+export function getImage(): Promise<CacheObj | null> {
+  console.log('getting image');
   return new Promise(resolve => {
-    chrome.storage.local.get([URL_KEY], function(urlRes) {
-      const url = urlRes[URL_KEY];
+    chrome.storage.local.get([IMAGE_KEY], function(imageRes) {
+      const image: ImageObj = imageRes[IMAGE_KEY];
 
       chrome.storage.local.get([DATE_KEY], function(dateRes) {
-        const datestamp = dateRes[DATE_KEY];
+        const datestamp: string = dateRes[DATE_KEY];
 
-        if (url && datestamp) {
+        if (image && datestamp) {
+          console.log(image, datestamp);
           resolve({
-            url,
+            image,
             datestamp
           });
         }
@@ -29,31 +32,31 @@ export function getImage(): Promise<ImageObj | null> {
   });
 }
 
-function saveToCache(imageUrl: string, currentDate: string) {
+function saveToCache(image: ImageObj, currentDate: string) {
   return new Promise(resolve => {
     chrome.storage.local.set({ [DATE_KEY]: currentDate }, function() {
-      chrome.storage.local.set({ [URL_KEY]: imageUrl }, function() {
+      chrome.storage.local.set({ [IMAGE_KEY]: image }, function() {
         resolve();
       });
     });
   });
 }
 
-export async function setImage(imageUrl: string) {
+export async function setImage(image: ImageObj) {
   const currentDate = new Date().toString();
   const savedImage = await getImage();
   if (
     !savedImage ||
     (!!savedImage && hasTimeoutElapsed(savedImage.datestamp, currentDate))
   ) {
-    await saveToCache(imageUrl, currentDate);
+    await saveToCache(image, currentDate);
   }
 }
 
 export function hasTimeoutElapsed(oldDate: string, currentDate: string) {
   const old = moment(oldDate);
   const current = moment(currentDate);
-  const timeout = 1000 * 60 * 5;
+  // const timeout = 1000 * 60 * 5;
 
-  return current.diff(old) > timeout;
+  return current.diff(old) > 1;
 }
