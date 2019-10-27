@@ -22,7 +22,7 @@ export function getImage(): Promise<CacheObj | null> {
           console.log(image, datestamp);
           resolve({
             image,
-            datestamp
+            datestamp,
           });
         }
 

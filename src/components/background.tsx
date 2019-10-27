@@ -13,7 +13,7 @@ export default class Background extends React.Component<Props> {
       backgroundImage: 'url(' + imageUrl + ')',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'
+      backgroundSize: 'cover',
     };
 
     return <div style={divStyle}>{this.props.children}</div>;

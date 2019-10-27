@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { ImageObj } from "./@types/global";
-import { fetchImage } from "./lib/fetchImage";
-import Attribution from "./components/attribution";
-import Background from "./components/background";
+import { ImageObj } from './@types/global';
+import { fetchImage } from './lib/fetchImage';
+import Attribution from './components/attribution';
+import Background from './components/background';
 
 interface Props {}
 interface State {
@@ -16,10 +16,10 @@ export default class App extends React.Component<Props, State> {
 
     this.state = {
       image: {
-        photographerName: "",
-        photographerUsername: "",
-        url: ""
-      }
+        photographerName: '',
+        photographerUsername: '',
+        url: '',
+      },
     };
   }
 

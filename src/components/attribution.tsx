@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import config from "../config";
+import config from '../config';
 
 interface Props {
   username: string;
@@ -37,10 +37,10 @@ export default class Attribution extends React.Component<Props> {
 const style = {
   container: {},
   text: {
-    fontFamily: "Helvetica Neue, Arial, sans-serif",
-    color: "white",
-    textShadowColor: "black",
+    fontFamily: 'Helvetica Neue, Arial, sans-serif',
+    color: 'white',
+    textShadowColor: 'black',
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 5
-  }
+    textShadowRadius: 5,
+  },
 };
