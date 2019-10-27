@@ -55,6 +55,6 @@ export async function setImage(image: ImageObj) {
 
 export function hasTimeoutElapsed(oldDate: number) {
   const currentDate = Date.now();
-  const timeout = 1000 * 60 * 1; // 30 minutes
+  const timeout = 1000 * 60 * 30; // 30 minutes
   return currentDate >= oldDate + timeout;
 }

@@ -40,7 +40,13 @@ export default class App extends React.Component<Props, State> {
       </Background>
     ) : (
       <div>
-        <p>Loading...</p>
+        <p
+          style={{
+            fontFamily: 'Helvetica Neue, Arial, sans-serif',
+          }}
+        >
+          Loading...
+        </p>
       </div>
     );
   }
