@@ -10,5 +10,4 @@ Install local build as an unpacked extension as per [official instructions](http
 
 ### Commands
 
-- `npm start` -> starts dev server
 - `npm build` -> generates files
