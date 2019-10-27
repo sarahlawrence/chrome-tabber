@@ -40,8 +40,6 @@ const style = {
   text: {
     fontFamily: 'Helvetica Neue, Arial, sans-serif',
     color: 'white',
-    textShadowColor: 'black',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 15,
+    textShadow: `0 0 10px black`,
   },
 };

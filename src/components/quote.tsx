@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Color from 'color';
 
 interface Props {
   text: string;
@@ -6,15 +7,20 @@ interface Props {
 }
 
 export default ({ text, color }: Props) => {
-  console.log('color', color);
-  const a = {
-    fontFamily: 'Beth Ellen',
-    fontSize: 50,
-    color,
+  const backgroundColor = Color(color)
+    .negate()
+    .saturate(0.4);
+  const foregroundColor = Color(color);
+
+  const textStyle: React.CSSProperties = {
+    ...(style.text as any),
+    color: `${foregroundColor}`,
+    textShadow: `0 0 20px ${backgroundColor}`,
   };
+
   return (
     <div style={style.container}>
-      <p style={a}>{text}</p>
+      <p style={textStyle}>{text}</p>
     </div>
   );
 };
@@ -31,5 +37,6 @@ const style = {
   text: {
     fontFamily: 'Beth Ellen',
     fontSize: 50,
+    userSelect: 'none',
   },
 };

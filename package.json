@@ -21,6 +21,7 @@
   "homepage": "https://github.com/SerriLaw/chrome-tabber#readme",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "color": "^3.1.2",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "unsplash-js": "6.0.0"
@@ -31,6 +32,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@types/chrome": "0.0.74",
+    "@types/color": "^3.0.0",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
     "@types/unsplash-js": "^5.0.0",
