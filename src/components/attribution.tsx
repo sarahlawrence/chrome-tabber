@@ -1,18 +1,16 @@
 import * as React from 'react';
 
-import config from '../config';
-
 interface Props {
   username: string;
   name: string;
 }
 
+const unsplashAppName = 'chrome_tabber';
+
 export default class Attribution extends React.Component<Props> {
   render() {
     const { username, name } = this.props;
-    const utmCode = `?utm_source=${
-      config().unsplashAppName
-    }&utm_medium=referral`;
+    const utmCode = `?utm_source=${unsplashAppName}&utm_medium=referral`;
 
     return (
       <div style={style.container}>
@@ -35,12 +33,13 @@ export default class Attribution extends React.Component<Props> {
 }
 
 const style = {
-  container: {},
+  container: {
+    alignSelf: 'flex-end',
+    margin: 8,
+  },
   text: {
     fontFamily: 'Helvetica Neue, Arial, sans-serif',
     color: 'white',
-    textShadowColor: 'black',
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 5
-  }
+    textShadow: `0 0 10px black`,
+  },
 };

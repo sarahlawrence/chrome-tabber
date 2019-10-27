@@ -1,10 +1,54 @@
+import Unsplash from 'unsplash-js';
+
 import { ImageObj } from '../@types/global';
+import { getImage, setImage } from './storage';
+import { ACCESS_KEY } from '../keys';
+import { UnsplashResponse } from '../@types/api';
 
 export async function fetchImage(): Promise<ImageObj> {
+  const savedData = await getLocalImage();
+  if (savedData) {
+    return savedData.image;
+  }
+  return await getRemoteImage();
+}
+
+async function getLocalImage() {
+  return await getImage();
+}
+async function getRemoteImage() {
+  const res = await getImageFromApi();
+  const image = transformImage(res);
+  await setImage(image);
+  return image;
+}
+
+async function getImageFromApi(): Promise<UnsplashResponse> {
+  console.log('FETCHING FROM API');
+  const unsplash = new Unsplash({
+    // @ts-ignore
+    accessKey: ACCESS_KEY,
+  });
+
+  try {
+    const res = await unsplash.photos.getRandomPhoto({
+      width: window.innerWidth,
+      height: window.innerHeight,
+      query: 'travel',
+    });
+
+    return (await res.json()) as UnsplashResponse;
+  } catch (err) {
+    console.log('ERR:', err);
+    return Promise.reject(err);
+  }
+}
+
+function transformImage(raw: UnsplashResponse): ImageObj {
   return {
-    url:
-      'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d4147a2e4e3f79299e2f0c92b13db9ee&auto=format&fit=crop&w=2468&q=80',
-    photographerUsername: 'string',
-    photographerName: 'string'
+    url: raw.urls.full,
+    photographerUsername: raw.user.username,
+    photographerName: raw.user.name,
+    color: raw.color,
   };
 }

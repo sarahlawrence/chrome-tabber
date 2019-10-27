@@ -1,4 +1,3 @@
-import { parseZone as moment } from 'moment';
 import { ImageObj } from '../@types/global';
 
 const IMAGE_KEY = 'chrome_tabber_image';
@@ -6,24 +5,31 @@ const DATE_KEY = 'chrome_tabber_date';
 
 interface CacheObj {
   image: ImageObj;
-  datestamp: string;
+  datestamp: number;
 }
 
-export function getImage(): Promise<CacheObj | null> {
-  console.log('getting image');
+export async function getImage(): Promise<CacheObj | null> {
+  const savedImage = await getFromCache();
+  if (!savedImage || hasTimeoutElapsed(savedImage.datestamp)) {
+    return null;
+  }
+  return savedImage;
+}
+
+function getFromCache(): Promise<CacheObj | null> {
   return new Promise(resolve => {
     chrome.storage.local.get([IMAGE_KEY], function(imageRes) {
       const image: ImageObj = imageRes[IMAGE_KEY];
 
       chrome.storage.local.get([DATE_KEY], function(dateRes) {
-        const datestamp: string = dateRes[DATE_KEY];
+        const datestamp: number = dateRes[DATE_KEY];
 
         if (image && datestamp) {
-          console.log(image, datestamp);
-          resolve({
+          const obj: CacheObj = {
             image,
-            datestamp
-          });
+            datestamp,
+          };
+          resolve(obj);
         }
 
         resolve(null);
@@ -32,7 +38,7 @@ export function getImage(): Promise<CacheObj | null> {
   });
 }
 
-function saveToCache(image: ImageObj, currentDate: string) {
+function saveToCache(image: ImageObj, currentDate: number) {
   return new Promise(resolve => {
     chrome.storage.local.set({ [DATE_KEY]: currentDate }, function() {
       chrome.storage.local.set({ [IMAGE_KEY]: image }, function() {
@@ -43,20 +49,12 @@ function saveToCache(image: ImageObj, currentDate: string) {
 }
 
 export async function setImage(image: ImageObj) {
-  const currentDate = new Date().toString();
-  const savedImage = await getImage();
-  if (
-    !savedImage ||
-    (!!savedImage && hasTimeoutElapsed(savedImage.datestamp, currentDate))
-  ) {
-    await saveToCache(image, currentDate);
-  }
+  const currentDate = Date.now();
+  await saveToCache(image, currentDate);
 }
 
-export function hasTimeoutElapsed(oldDate: string, currentDate: string) {
-  const old = moment(oldDate);
-  const current = moment(currentDate);
-  // const timeout = 1000 * 60 * 5;
-
-  return current.diff(old) > 1;
+export function hasTimeoutElapsed(oldDate: number) {
+  const currentDate = Date.now();
+  const timeout = 1000 * 60 * 30; // 30 minutes
+  return currentDate >= oldDate + timeout;
 }
