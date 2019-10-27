@@ -49,5 +49,6 @@ function transformImage(raw: UnsplashResponse): ImageObj {
     url: raw.urls.full,
     photographerUsername: raw.user.username,
     photographerName: raw.user.name,
+    color: raw.color,
   };
 }

@@ -4,6 +4,8 @@ import { ImageObj } from './@types/global';
 import { fetchImage } from './lib/fetchImage';
 import Attribution from './components/attribution';
 import Background from './components/background';
+import Quote from './components/quote';
+import Loading from './components/loading';
 
 interface Props {}
 interface State {
@@ -19,6 +21,7 @@ export default class App extends React.Component<Props, State> {
         photographerName: '',
         photographerUsername: '',
         url: '',
+        color: '',
       },
     };
   }
@@ -33,21 +36,14 @@ export default class App extends React.Component<Props, State> {
     const { image } = this.state;
     return image.url ? (
       <Background imageUrl={image.url}>
+        <Quote text="Not all those who wander are lost" color={image.color} />
         <Attribution
           username={image.photographerUsername}
           name={image.photographerName}
         />
       </Background>
     ) : (
-      <div>
-        <p
-          style={{
-            fontFamily: 'Helvetica Neue, Arial, sans-serif',
-          }}
-        >
-          Loading...
-        </p>
-      </div>
+      <Loading />
     );
   }
 }
