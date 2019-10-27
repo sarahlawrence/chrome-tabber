@@ -24,9 +24,7 @@ export default class App extends React.Component<Props, State> {
   }
 
   async componentDidMount() {
-    // TODO: check if timeout has elapsed
     const fetchedImage = await fetchImage();
-    // TODO: save image to cache
 
     fetchedImage && this.setState({ image: fetchedImage });
   }
