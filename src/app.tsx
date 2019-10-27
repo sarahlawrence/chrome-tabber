@@ -1,10 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { ImageObj } from './@types/global';
-import { fetchImage } from './lib/fetchImage';
-import Attribution from './components/attribution';
-import Background from './components/background';
-import TimeDate from './components/timeDate';
+import { ImageObj } from "./@types/global";
+import { fetchImage } from "./lib/fetchImage";
+import Attribution from "./components/attribution";
+import Background from "./components/background";
 
 interface Props {}
 interface State {
@@ -17,9 +16,9 @@ export default class App extends React.Component<Props, State> {
 
     this.state = {
       image: {
-        photographerName: '',
-        photographerUsername: '',
-        url: ''
+        photographerName: "",
+        photographerUsername: "",
+        url: ""
       }
     };
   }
@@ -36,7 +35,6 @@ export default class App extends React.Component<Props, State> {
     const { image } = this.state;
     return image.url ? (
       <Background imageUrl={image.url}>
-        <TimeDate />
         <Attribution
           username={image.photographerUsername}
           name={image.photographerName}
